@@ -4,4 +4,5 @@
 
 interface Player extends Entity, EntityLivingBase {
 
+    //TODO: Stub
 }

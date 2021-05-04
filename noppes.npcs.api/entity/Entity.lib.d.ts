@@ -3,4 +3,5 @@
 //deno-lint-ignore no-empty-interface
 interface Entity {
 
+    //TODO: Stub
 }

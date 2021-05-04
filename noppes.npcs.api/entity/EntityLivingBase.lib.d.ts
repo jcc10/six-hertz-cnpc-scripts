@@ -4,4 +4,5 @@
 //deno-lint-ignore no-empty-interface
 interface EntityLivingBase extends Entity {
 
+    //TODO: Stub
 }
