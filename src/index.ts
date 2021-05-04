@@ -1,3 +1,5 @@
+/// <reference lib="es2015"/>
+/// <reference lib="dom"/>
 const add = (x: number, y: number): number => { return x + y };
 
 const num1 = 1;
