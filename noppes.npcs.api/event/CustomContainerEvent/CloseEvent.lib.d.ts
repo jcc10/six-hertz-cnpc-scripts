@@ -1,7 +1,7 @@
 /// <reference no-default-lib="true"/>
-/// <reference path="./BlockEvent.lib.d.ts" />
+/// <reference path="./CustomContainerEvent.lib.d.ts" />
 
 //deno-lint-ignore no-empty-interface
-interface CloseEvent extends BlockEvent {
+interface CloseEvent extends CustomContainerEvent {
     
 }
