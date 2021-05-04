@@ -1,5 +1,7 @@
 /// <reference no-default-lib="true"/>
 /// <reference path="./java_stuff/java.lang.Object.lib.d.ts" />
+/// <reference path="./container/Container.lib.d.ts" />
+/// <reference path="./DamageSource.lib.d.ts" />
 /// <reference path="./Nbt.lib.d.ts" />
 /// <reference path="./Pos.lib.d.ts" />
 /// <reference path="./World.lib.d.ts" />
@@ -15,9 +17,9 @@ interface NpcAPI extends JavaObject {
     getFactions(): unknown,
     getGlobalDir(): unknown,
     getIBlock​(world: unknown, pos: unknown): unknown,
-    getIContainer​(container: unknown): unknown,
-    getIContainer​(inventory: unknown): unknown,
-    getIDamageSource​(damagesource: unknown): unknown,
+    getIContainer​(container: unknown): Container,
+    getIContainer​(inventory: unknown): Container,
+    getIDamageSource​(damagesource: unknown): DamageSource,
     getIEntity​(entity: unknown): unknown,
     getIItemStack​(itemstack: unknown): unknown,
     getINbt​(compound: unknown): Nbt,
