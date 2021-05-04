@@ -1,0 +1,24 @@
+{
+  "name": "six-hertz-cnpc-scripts",
+  "version": "1.0.0",
+  "description": "Custom NPC Scripts used on the Six Hertz of Separation server.",
+  "main": "index.js",
+  "scripts": {
+    "build": "deno run --unstable --allow-read --allow-write --allow-net --allow-env  https://deno.land/x/bundler/cli.ts bundle src/index.ts=index.js --out-dir bundled && babel bundled -d built"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jcc10/six-hertz-cnpc-scripts.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jcc10/six-hertz-cnpc-scripts/issues"
+  },
+  "homepage": "https://github.com/jcc10/six-hertz-cnpc-scripts#readme",
+  "dependencies": {
+    "@babel/preset-env": "^7.14.1",
+    "@babel/cli": "^7.13.16",
+    "@babel/core": "^7.14.0"
+  }
+}

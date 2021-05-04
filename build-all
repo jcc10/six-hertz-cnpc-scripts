@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# bundle src/index
+deno run --unstable --allow-read --allow-write --allow-net --allow-env  https://deno.land/x/bundler/cli.ts bundle src/index.ts=index.js --out-dir bundled
+
+
+npx babel bundled -d built
