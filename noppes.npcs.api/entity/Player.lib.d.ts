@@ -4,6 +4,6 @@
 
 //deno-lint-ignore no-empty-interface
 declare interface Player extends EntityLivingBase {
-
+    message(message: string): void
     //TODO: Stub
 }

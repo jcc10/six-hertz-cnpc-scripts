@@ -1,28 +1,26 @@
 /// <reference no-default-lib="true"/>
-/// <reference path="../../noppes.npcs.api/event/lib.BlockEvents.d.ts"/>
+/// <reference path="../../noppes.npcs.api/event/BlockEvents.lib.d.ts"/>
 import { instanceofBlockScripted } from "../helper_toolkit/type_checks/blocks.ts";
 
-//deno-lint-ignore no-unused-vars
-function init(e: InitEvent) {
+export function init(e: InitEvent) {
 	if(instanceofBlockScripted(e.block)){
 		//Infinite Hardness
 		e.block.setHardness(-10);
 	}
 }
 
+function preventBreak(e: BlockEvent){
+	// prevent breaking
+	e.setCanceled(true);
+}
 
-//deno-lint-ignore no-unused-vars
-function broken(e: BreakEvent) {
-	// prevent breaking
-	e.setCanceled(true);
+export function broken(e: BreakEvent) {
+	preventBreak(e)
 }
-//deno-lint-ignore no-unused-vars
-function exploded(e: ExplodedEvent) {
-	// prevent breaking
-	e.setCanceled(true);
+export function exploded(e: ExplodedEvent) {
+	preventBreak(e)
 }
-//deno-lint-ignore no-unused-vars
-function harvested(e: HarvestedEvent) {
-	// prevent breaking
-	e.setCanceled(true);
+export function harvested(e: HarvestedEvent) {
+	preventBreak(e)
+	e.player.message("Test")
 }
