@@ -1,4 +1,5 @@
 /// <reference no-default-lib="true"/>
+/// <reference lib="es2015"/>
 /// <reference path="./BlockEvent/BreakEvent.lib.d.ts" />
 /// <reference path="./BlockEvent/ClickedEvent.lib.d.ts" />
 /// <reference path="./BlockEvent/CollidedEvent.lib.d.ts" />
