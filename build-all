@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # bundle src/index
-deno run --unstable --allow-read --allow-write --allow-net --allow-env  https://deno.land/x/bundler/cli.ts bundle src/index.ts=index.js --out-dir bundled
+deno run --unstable --allow-read --allow-write --allow-net --allow-env  https://deno.land/x/bundler/cli.ts bundle src/index.ts=index.js --out-dir dist
+# bundle src/RegenBlock/script
+deno run --unstable --allow-read --allow-write --allow-net --allow-env  https://deno.land/x/bundler/cli.ts bundle src/RegenBlock/script.ts=RegenBlock.js --out-dir dist
 
 
-npx babel bundled -d built
+npx babel dist -d built
