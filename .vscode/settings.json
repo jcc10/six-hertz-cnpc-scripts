@@ -3,10 +3,13 @@
     "deno.lint": true,
     "deno.unstable": true,
     "cSpell.words": [
+        "Storeddata",
+        "Tempdata",
         "custom",
         "damagesource",
         "event",
         "itemstack",
+        "noppes",
         "npcs"
     ]
 }
