@@ -5,8 +5,8 @@
 /// <reference path="../Nbt.lib.d.ts"/>
 /// <reference path="../Pos.lib.d.ts"/>
 /// <reference path="../World.lib.d.ts"/>
-interface Block {
-    blockEvent​(type: number, data: number): void
+declare interface Block {
+    blockEvent(type: number, data: number): void
     getContainer(): Container
     getDisplayName(): string
     //TODO: fix minecraft type: net.minecraft.block.Block
@@ -26,13 +26,13 @@ interface Block {
     getY(): number
     getZ(): number
     hasTileEntity(): boolean
-    interact​(side: SideEnum): void
+    interact(side: SideEnum): void
     isAir(): boolean
     isContainer(): boolean
     isRemoved(): boolean
     remove(): void
-    setBlock​(name: string): Block
-    setBlock​(block: Block): Block
-    setMetadata​(i: number): void
-    setTileEntityNBT​(nbt: Nbt): void
+    setBlock(name: string): Block
+    setBlock(block: Block): Block
+    setMetadata(i: number): void
+    setTileEntityNBT(nbt: Nbt): void
 }

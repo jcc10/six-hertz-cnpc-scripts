@@ -32,35 +32,35 @@ interface NpcAPI extends JavaObject {
     getGlobalDir(): unknown,
     //TODO: fix minecraft type: net.minecraft.world.World
     //TODO: fix minecraft type: net.minecraft.util.math.BlockPos
-    getIBlock​(world: unknown, pos: unknown): Block,
+    getIBlock(world: unknown, pos: unknown): Block,
     //TODO: fix minecraft type: net.minecraft.inventory.Container
-    getIContainer​(container: unknown): Container,
+    getIContainer(container: unknown): Container,
     //TODO: fix minecraft type: net.minecraft.inventory.IInventory
-    getIContainer​(inventory: unknown): Container,
+    getIContainer(inventory: unknown): Container,
     //TODO: fix minecraft type: net.minecraft.util.DamageSource
-    getIDamageSource​(damagesource: unknown): DamageSource,
+    getIDamageSource(damagesource: unknown): DamageSource,
     //TODO: fix minecraft type: net.minecraft.entity.Entity
-    getIEntity​(entity: unknown): Entity,
+    getIEntity(entity: unknown): Entity,
     //TODO: fix minecraft type: net.minecraft.item.ItemStack
-    getIItemStack​(itemstack: unknown): ItemStack,
+    getIItemStack(itemstack: unknown): ItemStack,
     //TODO: fix minecraft type: net.minecraft.nbt.NBTTagCompound
-    getINbt​(compound: unknown): Nbt,
-    getIPos​(x: number, y: number, z: number): Pos,
-    getIWorld​(dimensionId: number): World,
-    getIWorld​(): World,
+    getINbt(compound: unknown): Nbt,
+    getIPos(x: number, y: number, z: number): Pos,
+    getIWorld(dimensionId: number): World,
+    getIWorld(): World,
     getIWorlds(): World[],
     getQuests(): FactionHandler,
-    getRandomName​(dictionary: number, gender: number): string,
-    getRawPlayerData​(uuid: string): Nbt,
+    getRandomName(dictionary: number, gender: number): string,
+    getRawPlayerData(uuid: string): Nbt,
     getRecipes(): FactionHandler,
     //TODO: fix java type: java.io.File
     getWorldDir(): unknown,
-    hasPermissionNode​(permission: string): boolean,
+    hasPermissionNode(permission: string): boolean,
     Instance(): NpcAPI,
     IsAvailable(): boolean,
-    registerCommand​(): void,
-    registerPermissionNode​(permission: string): void,
+    registerCommand(): void,
+    registerPermissionNode(permission: string): void,
     //TODO: fix minecraft type: net.minecraft.world.World
-    spawnNPC​(world: unknown, x: number, y: number, z: number): CustomNpc,
-    stringToNbt​(): Nbt,
+    spawnNPC(world: unknown, x: number, y: number, z: number): CustomNpc,
+    stringToNbt(): Nbt,
 }

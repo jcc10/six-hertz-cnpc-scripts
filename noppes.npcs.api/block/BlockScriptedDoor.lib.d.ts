@@ -1,8 +1,15 @@
 /// <reference no-default-lib="true"/>
 /// <reference path="./Block.lib.d.ts"/>
+/// <reference path="../Timers.lib.d.ts"/>
 
-//deno-lint-ignore no-empty-interface
 interface BlockScriptedDoor extends Block {
-
-    //TODO: Stub
+    getBlockModel(): string
+    getHardness(): number
+    getOpen(): boolean
+    getResistance(): number
+    getTimers(): Timers
+    setBlockModel(name: string): void
+    setHardness(hardness: number): void
+    setOpen(open: boolean): void
+    setResistance(resistance: number): void
 }
