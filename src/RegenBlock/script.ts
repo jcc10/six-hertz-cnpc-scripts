@@ -12,17 +12,17 @@ function init(e: InitEvent) {
 
 
 //deno-lint-ignore no-unused-vars
-function broken(e: InitEvent) {
+function broken(e: BreakEvent) {
 	// prevent breaking
 	e.setCanceled(true);
 }
 //deno-lint-ignore no-unused-vars
-function exploded(e: InitEvent) {
+function exploded(e: ExplodedEvent) {
 	// prevent breaking
 	e.setCanceled(true);
 }
 //deno-lint-ignore no-unused-vars
-function harvested(e: InitEvent) {
+function harvested(e: HarvestedEvent) {
 	// prevent breaking
 	e.setCanceled(true);
 }

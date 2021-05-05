@@ -3,5 +3,5 @@
 
 //deno-lint-ignore no-empty-interface
 declare interface BreakEvent extends BlockEvent {
-    
+
 }
