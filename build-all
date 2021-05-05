@@ -2,9 +2,13 @@
 
 rm -rf ./bundle
 mkdir ./bundle
+rm -rf ./dist
+mkdir ./dist
+rm -rf ./built
+mkdir ./built
 
 # bundle src/index
-deno bundle ./src/index.ts ./bundle/index.js
+deno bundle ./src/testBlock.ts ./bundle/testBlock.js
 # bundle src/RegenBlock/script
 deno bundle ./src/RegenBlock/script.ts ./bundle/RegenBlock.js
 
