@@ -2,6 +2,6 @@
 /// <reference path="./CustomGuiComponent.lib.d.ts"/>
 
 //deno-lint-ignore no-empty-interface
-interface Label extends CustomGuiComponent {
+declare interface Label extends CustomGuiComponent {
     //TODO: Stub
 }

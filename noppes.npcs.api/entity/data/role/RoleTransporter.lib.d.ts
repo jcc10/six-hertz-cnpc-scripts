@@ -2,13 +2,13 @@
 /// <reference path="./NPCRole.lib.d.ts"/>
 
 //deno-lint-ignore no-empty-interface
-interface RoleTransporter extends NPCRole {
+declare interface RoleTransporter extends NPCRole {
 
     //TODO: Stub
 }
 
 //deno-lint-ignore no-empty-interface
-interface TransportLocation {
+declare interface TransportLocation {
 
     //TODO: Stub
 }

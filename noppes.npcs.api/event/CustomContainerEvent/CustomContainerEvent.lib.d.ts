@@ -3,7 +3,7 @@
 /// <reference path="../../container/Container.lib.d.ts" />
 /// <reference path="../../entity/Player.lib.d.ts" />
 
-interface CustomContainerEvent extends CustomNPCsEvent {
+declare interface CustomContainerEvent extends CustomNPCsEvent {
     container: Container,
     player: Player
 }

@@ -2,7 +2,7 @@
 /// <reference path="./CustomGuiEvent.lib.d.ts" />
 /// <reference path="../../item/ItemStack.lib.d.ts" />
 
-interface SlotEvent extends CustomGuiEvent {
+declare interface SlotEvent extends CustomGuiEvent {
     slotId: number,
     stack: ItemStack
 }

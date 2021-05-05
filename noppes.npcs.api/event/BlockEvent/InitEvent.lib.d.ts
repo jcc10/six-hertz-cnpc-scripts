@@ -2,6 +2,6 @@
 /// <reference path="./BlockEvent.lib.d.ts" />
 
 //deno-lint-ignore no-empty-interface
-interface InitEvent extends BlockEvent {
+declare interface InitEvent extends BlockEvent {
     
 }

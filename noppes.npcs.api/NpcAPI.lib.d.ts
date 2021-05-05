@@ -17,11 +17,17 @@
 /// <reference path="./Pos.lib.d.ts" />
 /// <reference path="./World.lib.d.ts" />
 
-interface NpcAPI extends JavaObject {
+declare interface NpcAPI extends JavaObject {
     createCustomGui(id: number, width: number, height: number, pauseGame: boolean): CustomGui,
     createMail(sender: string, subject: string): PlayerMail,
+    /**
+     * Doesnt spawn the npc in the world
+     */
     //TODO: fix minecraft type: net.minecraft.world.World
     createNPC(world: unknown): CustomNpc,
+    /**
+     * Used by modders
+     */
     //TODO: fix forge type: net.minecraftforge.fml.common.eventhandler.EventBus
     events(): unknown,
     executeCommand(world: World, command: string): unknown,
@@ -51,6 +57,9 @@ interface NpcAPI extends JavaObject {
     getIWorlds(): World[],
     getQuests(): FactionHandler,
     getRandomName(dictionary: number, gender: number): string,
+    /**
+     * Get player data even if they are offline
+     */
     getRawPlayerData(uuid: string): Nbt,
     getRecipes(): FactionHandler,
     //TODO: fix java type: java.io.File
@@ -58,9 +67,15 @@ interface NpcAPI extends JavaObject {
     hasPermissionNode(permission: string): boolean,
     Instance(): NpcAPI,
     IsAvailable(): boolean,
+    /**
+     * Use to register your own /noppes subcommand
+     */
     registerCommand(): void,
     registerPermissionNode(permission: string): void,
     //TODO: fix minecraft type: net.minecraft.world.World
+    /**
+     * Creates and spawns an npc
+     */
     spawnNPC(world: unknown, x: number, y: number, z: number): CustomNpc,
     stringToNbt(): Nbt,
 }

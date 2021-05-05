@@ -2,7 +2,7 @@
 /// <reference path="./Block.lib.d.ts"/>
 /// <reference path="../Timers.lib.d.ts"/>
 
-interface BlockScriptedDoor extends Block {
+declare interface BlockScriptedDoor extends Block {
     getBlockModel(): string
     getHardness(): number
     getOpen(): boolean

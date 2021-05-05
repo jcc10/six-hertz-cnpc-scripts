@@ -1,7 +1,7 @@
 /// <reference no-default-lib="true"/>
 
 //deno-lint-ignore no-empty-interface
-interface NPCAi {
+declare interface NPCAi {
 
     //TODO: Stub
 }

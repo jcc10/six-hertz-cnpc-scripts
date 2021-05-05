@@ -2,6 +2,6 @@
 /// <reference path="./BlockEvent.lib.d.ts" />
 /// <reference path="../../Pos.lib.d.ts" />
 
-interface NeighborChangedEvent extends BlockEvent {
+declare interface NeighborChangedEvent extends BlockEvent {
     changedPos: Pos
 }

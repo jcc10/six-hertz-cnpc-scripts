@@ -3,7 +3,7 @@
 /// <reference path="../../handler/data/Dialog.lib.d.ts" />
 /// <reference path="../../entity/Player.lib.d.ts" />
 
-interface DialogEvent extends NpcEvent {
+declare interface DialogEvent extends NpcEvent {
     dialog: Dialog,
     player: Player
 }

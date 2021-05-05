@@ -1,7 +1,7 @@
 /// <reference no-default-lib="true"/>
 
 //deno-lint-ignore no-empty-interface
-interface NPCStats {
+declare interface NPCStats {
 
     //TODO: Stub
 }

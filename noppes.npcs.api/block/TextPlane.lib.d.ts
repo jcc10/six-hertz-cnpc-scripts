@@ -1,7 +1,7 @@
 /// <reference no-default-lib="true"/>
 
 //deno-lint-ignore no-empty-interface
-interface TextPlane {
+declare interface TextPlane {
 
     //TODO: Stub
 }

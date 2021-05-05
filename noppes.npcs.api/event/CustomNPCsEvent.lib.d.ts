@@ -2,6 +2,6 @@
 /// <reference path="../forge_stuff/fml.common.eventhandler.Event.lib.d.ts" />
 /// <reference path="../NpcAPI.lib.d.ts" />
 
-interface CustomNPCsEvent extends ForgeEvent {
+declare interface CustomNPCsEvent extends ForgeEvent {
     readonly API: NpcAPI
 }

@@ -2,6 +2,6 @@
 /// <reference path="./CustomContainerEvent.lib.d.ts" />
 
 //deno-lint-ignore no-empty-interface
-interface CloseEvent extends CustomContainerEvent {
+declare interface CloseEvent extends CustomContainerEvent {
     
 }

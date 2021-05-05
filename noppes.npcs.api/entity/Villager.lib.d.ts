@@ -2,7 +2,7 @@
 /// <reference path="./EntityLiving.lib.d.ts" />
 
 //deno-lint-ignore no-empty-interface
-interface Villager extends EntityLiving {
+declare interface Villager extends EntityLiving {
 
     //TODO: Stub
 }

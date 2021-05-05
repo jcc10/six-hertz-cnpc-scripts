@@ -1,6 +1,6 @@
 /// <reference no-default-lib="true"/>
 
 //deno-lint-ignore no-empty-interface
-interface Container {
+declare interface Container {
     //TODO: Stub
 }

@@ -1,6 +1,6 @@
 /// <reference no-default-lib="true"/>
 
 //deno-lint-ignore no-empty-interface
-interface QuestObjective {
+declare interface QuestObjective {
     //TODO: Stub
 }

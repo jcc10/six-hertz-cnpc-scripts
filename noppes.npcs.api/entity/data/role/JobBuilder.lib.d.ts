@@ -1,7 +1,7 @@
 /// <reference no-default-lib="true"/>
 
 //deno-lint-ignore no-empty-interface
-interface JobBuilder {
+declare interface JobBuilder {
 
     //TODO: Stub
 }

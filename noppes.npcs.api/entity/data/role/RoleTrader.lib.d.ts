@@ -2,7 +2,7 @@
 /// <reference path="./NPCRole.lib.d.ts"/>
 
 //deno-lint-ignore no-empty-interface
-interface RoleTrader extends NPCRole {
+declare interface RoleTrader extends NPCRole {
 
     //TODO: Stub
 }

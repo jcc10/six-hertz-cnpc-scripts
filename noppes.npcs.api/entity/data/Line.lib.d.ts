@@ -1,7 +1,7 @@
 /// <reference no-default-lib="true"/>
 
 //deno-lint-ignore no-empty-interface
-interface Line {
+declare interface Line {
 
     //TODO: Stub
 }

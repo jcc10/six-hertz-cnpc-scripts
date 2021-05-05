@@ -1,6 +1,6 @@
 /// <reference no-default-lib="true"/>
 
 //deno-lint-ignore no-empty-interface
-interface ScoreboardTeam {
+declare interface ScoreboardTeam {
     //TODO: Stub
 }

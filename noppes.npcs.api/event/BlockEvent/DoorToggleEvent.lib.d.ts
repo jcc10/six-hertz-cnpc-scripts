@@ -2,6 +2,6 @@
 /// <reference path="./BlockEvent.lib.d.ts" />
 
 //deno-lint-ignore no-empty-interface
-interface DoorToggleEvent extends BlockEvent {
+declare interface DoorToggleEvent extends BlockEvent {
     
 }

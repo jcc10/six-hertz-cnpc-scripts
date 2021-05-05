@@ -4,7 +4,13 @@
 /// <reference path="../item/ItemStack.lib.d.ts"/>
 /// <reference path="../Timers.lib.d.ts"/>
 
-interface BlockScripted extends Block {
+declare interface BlockScripted extends Block {
+	/**
+	 * On servers the enable-command-block option in the server.properties needs to be set to true
+	 * Use /gamerule commandBlockOutput false/true to turn off/on command block feedback
+	 * Setting NpcUseOpCommands to true in the CustomNPCs.cfg should allow the npc to run op commands, be warned this could be a major security risk, use at own risk
+	 * For permission plugins the commands are run under uuid:c9c843f8-4cb1-4c82-aa61-e264291b7bd6 and name:[customnpcs]
+	 */
     executeCommand(command: string): string;
     getHardness(): number;
 	getIsLadder(): boolean;

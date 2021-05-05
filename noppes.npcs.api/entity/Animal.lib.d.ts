@@ -2,7 +2,7 @@
 /// <reference path="./EntityLiving.lib.d.ts" />
 
 //deno-lint-ignore no-empty-interface
-interface Animal extends EntityLiving {
+declare interface Animal extends EntityLiving {
 
     //TODO: Stub
 }

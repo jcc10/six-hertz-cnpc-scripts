@@ -2,6 +2,6 @@
 /// <reference path="./ItemStack.lib.d.ts"/>
 
 //deno-lint-ignore no-empty-interface
-interface ItemBook extends ItemStack {
+declare interface ItemBook extends ItemStack {
     //TODO: Stub
 }

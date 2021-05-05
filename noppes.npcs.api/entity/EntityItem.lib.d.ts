@@ -2,7 +2,7 @@
 /// <reference path="./EntityLivingBase.lib.d.ts" />
 
 //deno-lint-ignore no-empty-interface
-interface EntityItem extends EntityLivingBase {
+declare interface EntityItem extends EntityLivingBase {
 
     //TODO: Stub
 }

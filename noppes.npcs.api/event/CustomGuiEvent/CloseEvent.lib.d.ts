@@ -2,5 +2,5 @@
 /// <reference path="./CustomGuiEvent.lib.d.ts" />
 
 //deno-lint-ignore no-empty-interface
-interface CloseEvent extends CustomGuiEvent {
+declare interface CloseEvent extends CustomGuiEvent {
 }

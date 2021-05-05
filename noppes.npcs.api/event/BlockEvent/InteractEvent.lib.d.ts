@@ -3,7 +3,7 @@
 /// <reference path="../../entity/Player.lib.d.ts" />
 /// <reference path="../../constants/SideEnum.lib.d.ts" />
 
-interface InteractEvent extends BlockEvent {
+declare interface InteractEvent extends BlockEvent {
     hitX: number,
     hitY: number,
     hitZ: number,

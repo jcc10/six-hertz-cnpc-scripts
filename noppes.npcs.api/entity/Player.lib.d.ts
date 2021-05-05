@@ -3,7 +3,7 @@
 /// <reference path="./EntityLivingBase.lib.d.ts" />
 
 //deno-lint-ignore no-empty-interface
-interface Player extends EntityLivingBase {
+declare interface Player extends EntityLivingBase {
 
     //TODO: Stub
 }
