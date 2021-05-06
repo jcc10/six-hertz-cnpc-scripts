@@ -18,8 +18,37 @@ interface INbt {}
 /**
  * All the methods in IPos create a new IPos object
  */
-//deno-lint-ignore no-empty-interface
-interface IPos {}
+interface IPos {
+    add(x: number, y: number, z: number): IPos
+    add(pos: IPos): IPos
+    distanceTo(pos: IPos): number
+    down(): IPos
+    down(n: number): IPos
+    east(): IPos
+    east(n: number): IPos
+    /**
+     * Expert users only
+     * net.minecraft.util.math.BlockPos	
+     */
+    //TODO: Add minecraft type
+    getMCBlockPos(): unknown
+    getX(): number
+    getY(): number
+    getZ(): number
+    normalize(): number[]
+    north(): IPos
+    north(n: number): IPos
+    offset(direction: number): IPos
+    offset(direction: number, n: number): IPos
+    south(): IPos
+    south(n: number): IPos
+    subtract(x: number, y: number, z: number): IPos
+    subtract(pos: IPos): IPos
+    up(): IPos
+    up(n: number): IPos
+    west(): IPos
+    west(n: number): IPos
+}
 //deno-lint-ignore no-empty-interface
 interface IRayTrace {}
 //deno-lint-ignore no-empty-interface
@@ -40,7 +69,78 @@ declare class CommandNoppesBase {}
 /**
  * Note this API should only be used Server side not on the client
  */
-declare class NpcAPI {}
+declare class NpcAPI {
+    createCustomGui(id: number, width: number, height: number, pauseGame: boolean): ICustomGui
+    createMail(sender: string, subject: string): IPlayerMail
+    /**
+     * Doesnt spawn the npc in the world
+     */
+    //TODO: Add minecraft type: net.minecraft.world.World
+    createNPC(world: unknown): ICustomNpc
+    /**
+     * Used by modders
+     * net.minecraftforge.fml.common.eventhandler.EventBus
+     */
+    //TODO: Add minecraft type
+    events(): unknown
+
+    executeCommand(world: IWorld, command: string): string
+    getClones(): ICloneHandler
+    getDialogs(): IDialogHandler
+    getFactions(): IFactionHandler
+    /**
+     * java.io.File
+     */
+    //TODO: Add java type
+    getGlobalDir(): unknown
+    //TODO: Add minecraft type: net.minecraft.world.World 
+    //TODO: Add minecraft type: net.minecraft.util.math.BlockPos 
+    getIBlock(world: unknown, pos: unknown): IBlock
+    //TODO: Add minecraft type: net.minecraft.inventory.Container 
+    getIContainer(container: unknown): IContainer
+    //TODO: Add minecraft type: net.minecraft.inventory.IInventory 
+    getIContainer(inventory: unknown): IContainer
+    //TODO: Add minecraft type: net.minecraft.util.DamageSource 
+    getIDamageSource(damagesource: unknown): IDamageSource
+    //TODO: Add minecraft type: net.minecraft.entity.Entity 
+    getIEntity(entity: unknown): IEntity
+    //TODO: Add minecraft type: net.minecraft.item.ItemStack 
+    getIItemStack(itemstack: unknown): IItemStack
+    //TODO: Add minecraft type: net.minecraft.nbt.NBTTagCompound 
+    getINbt(compound: unknown): INbt
+    getIPos(x: number, y: number, z: number): IPos
+    getIWorld(dimensionId: number): IWorld
+    //TODO: Add minecraft type: net.minecraft.world.WorldServer
+    getIWorld(world: unknown): IWorld
+    getIWorlds(): IWorld[]
+    getQuests(): IQuestHandler
+    getRandomName(dictionary: number, gender: number): string
+    /**
+     * Get player data even if they are offline
+     */
+    getRawPlayerData(uuid: string): INbt
+    getRecipes(): IRecipeHandler
+    /**
+     * java.io.File
+     */
+    //TODO: Add java type
+    getWorldDir(): unknown 
+    hasPermissionNode(permission: string): boolean
+    static Instance(): NpcAPI
+    static IsAvailable(): boolean
+    /**
+     * Use to register your own /noppes subcommand
+     */
+    registerCommand(command: CommandNoppesBase): void
+    registerPermissionNode(permission: string, defaultType: number): void
+    /**
+     * Creates and spawns an npc
+     */
+    //TODO: Add minecraft type: net.minecraft.world.World
+    spawnNPC(world: unknown, x: number, y: number, z: number): ICustomNpc
+
+    stringToNbt(str: string): INbt
+}
 
 
 declare class CustomNPCsException {}
@@ -187,7 +287,14 @@ declare  enum RoleType {}
 /**
  * Facing Types
  */
-declare enum SideType {}
+declare enum SideType {
+    DOWN = 0,
+    UP,
+    NORTH,
+    SOUTH,
+    WEST,
+    EAST,
+}
 /**
  * Tactical Variant Types
  */
@@ -508,14 +615,53 @@ interface IVillager {}
 
     /**
      * ENTITY.DATA
-     * TODO: Add this
      */
 
 //deno-lint-ignore no-empty-interface
 interface IData {}
 
 //deno-lint-ignore no-empty-interface
+interface ILine {}
+
+//deno-lint-ignore no-empty-interface
 interface IMark {}
+
+
+//deno-lint-ignore no-empty-interface
+interface INPCAdvanced {}
+
+//deno-lint-ignore no-empty-interface
+interface INPCAi {}
+
+//deno-lint-ignore no-empty-interface
+interface INPCDisplay {}
+
+//deno-lint-ignore no-empty-interface
+interface INPCInventory {}
+
+//deno-lint-ignore no-empty-interface
+interface INPCJob {}
+
+//deno-lint-ignore no-empty-interface
+interface INPCMelee {}
+
+//deno-lint-ignore no-empty-interface
+interface INPCRanged {}
+
+//deno-lint-ignore no-empty-interface
+interface INPCRole {}
+
+//deno-lint-ignore no-empty-interface
+interface INPCStats {}
+
+/**
+ * Returns objects from the Pixelmon API see https://reforged.gg/docs/
+ */
+//deno-lint-ignore no-empty-interface
+interface IPixelmonPlayerData {}
+
+//deno-lint-ignore no-empty-interface
+interface IPlayerMail {}
 
     /**
      * ENTITY.DATA.ROLE
@@ -524,13 +670,47 @@ interface IMark {}
 
     /**
      * GUI
-     * TODO: Add this
      */
+
+//deno-lint-ignore no-empty-interface
+interface IButton {}
+//deno-lint-ignore no-empty-interface
+interface ICustomGui {}
+//deno-lint-ignore no-empty-interface
+interface ICustomGuiComponent {}
+//deno-lint-ignore no-empty-interface
+interface IItemSlot {}
+//deno-lint-ignore no-empty-interface
+interface ILabel {}
+//deno-lint-ignore no-empty-interface
+interface IScroll {}
+//deno-lint-ignore no-empty-interface
+interface ITextField {}
+//deno-lint-ignore no-empty-interface
+interface ITexturedButton {}
+//deno-lint-ignore no-empty-interface
+interface ITexturedRect {}
 
     /**
      * HANDLER
      * TODO: Add this
      */
+
+
+//deno-lint-ignore no-empty-interface
+interface ICloneHandler {}
+
+//deno-lint-ignore no-empty-interface
+interface IDialogHandler {}
+
+//deno-lint-ignore no-empty-interface
+interface IFactionHandler {}
+
+//deno-lint-ignore no-empty-interface
+interface IQuestHandler {}
+
+//deno-lint-ignore no-empty-interface
+interface IRecipeHandler {}
 
     /**
      * HANDLER.DATA
