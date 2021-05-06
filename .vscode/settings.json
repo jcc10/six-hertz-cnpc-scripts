@@ -3,10 +3,13 @@
     "deno.lint": true,
     "deno.unstable": true,
     "cSpell.words": [
+        "Pixelmon",
+        "REGEN",
         "Storeddata",
         "Tempdata",
         "custom",
         "damagesource",
+        "despawn",
         "event",
         "itemstack",
         "noppes",

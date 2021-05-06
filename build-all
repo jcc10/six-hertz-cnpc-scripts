@@ -8,9 +8,11 @@ rm -rf ./built
 mkdir ./built
 
 # bundle src/index
+deno cache ./src/testBlock.ts
 deno bundle ./src/testBlock.ts ./bundle/testBlock.js
 # bundle src/RegenBlock/script
-deno bundle ./src/RegenBlock/script.ts ./bundle/RegenBlock.js
+#deno cache ./src/RegenBlock/script.ts
+#deno bundle ./src/RegenBlock/script.ts ./bundle/RegenBlock.js
 
 
 npx babel bundle -d built

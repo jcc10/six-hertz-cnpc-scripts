@@ -1,6 +1,6 @@
 /// <reference no-default-lib="true"/>
-/// <reference path="../noppes.npcs.api/event/BlockEvents.lib.d.ts"/>
-import { instanceofBlockScripted } from "./helper_toolkit/type_checks/blocks.ts";
+/// <reference path="../types/noppes.npcs/events/lib.scriptedblock.d.ts"/>
+import { instanceofBlockScripted } from "./helper_toolkit/type_checks.ts";
 
 export function init(e: InitEvent) {
 	if(instanceofBlockScripted(e.block)){
