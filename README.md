@@ -6,4 +6,4 @@ Currently using deno for linting, deno package Bundler for bundeling and NPM pac
 
 # NPC API
 
-I am currently working on generating lib files for the CNPC api. Those files are for 1.12.2.
+I am currently working on generating lib files for the CNPC api. Those files are for 1.12.2. This will eventually be split off into another project just containing the docs.
