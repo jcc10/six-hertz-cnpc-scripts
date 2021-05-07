@@ -382,20 +382,23 @@ declare enum AnimationType {
 /**
  * Entity Types
  */
+//TODO: Figure out why deno complains about this line...
+//ERROR: Enum declarations can only merge with namespace or other enum declarations.
+//
 declare enum EntityType {
     ANY = -1,
     UNKNOWN = 0,
-    PLAYER,
-    NPC,
-    MONSTER,
-    ANIMAL,
-    LIVING,
-    ITEM,
-    PROJECTILE,
-    PIXELMON,
-    VILLAGER,
-    ARROW,
-    THROWABLE,
+    PLAYER = 1,
+    NPC= 2,
+    MONSTER = 3,
+    ANIMAL = 4,
+    LIVING = 5,
+    ITEM = 6,
+    PROJECTILE = 7,
+    PIXELMON = 8,
+    VILLAGER = 9,
+    ARROW = 10,
+    THROWABLE = 11,
 }
 
 declare enum GuiComponentType {
@@ -1010,16 +1013,105 @@ interface IRecipeHandler {}
 
     /**
      * ITEM
-     * TODO: Add this
      */
 
-//deno-lint-ignore no-empty-interface
-interface IItemArmor {}
-//deno-lint-ignore no-empty-interface
-interface IItemBlock {}
-//deno-lint-ignore no-empty-interface
-interface IItemBook {}
-//deno-lint-ignore no-empty-interface
-interface IItemScripted {}
-//deno-lint-ignore no-empty-interface
-interface IItemStack {}
+interface IItemArmor {
+    getArmorMaterial(): string
+    getArmorSlot(): number
+}
+interface IItemBlock {
+    getBlockName(): string
+}
+interface IItemBook {
+    getAuthor(): string 
+    getText(): string[]
+    getTitle(): string
+    setAuthor(author: string): void
+    /**
+     * Set the text for multiple pages
+     */
+    setText(pages: string[]): void
+    setTitle(title: string): void 
+}
+interface IItemScripted {
+    getColor(): number
+    getDurabilityColor(): number
+    getDurabilityShow(): boolean
+    getDurabilityValue(): number
+    getTexture(damage: number): string
+    hasTexture(damage: number): boolean
+    setColor(color: number): void
+    setDurabilityColor(color: number): void
+    setDurabilityShow(bo: boolean): void
+    setDurabilityValue(value: number): void
+    setMaxStackSize(size: number): void
+    /**
+     * All scripted items with the same damage value have the same texture.
+     */
+    setTexture(damage: number, texture: string): void
+}
+interface IItemStack {
+    addEnchantment(id: string, strenght: number): void
+    compare(item: IItemStack, ignoreNBT: boolean): boolean
+    copy(): IItemStack
+    damageItem(damage: number, living: IEntityLiving): void
+    getAttackDamage(): number
+    getAttribute(name: string): number
+    getDisplayName(): string
+    getFoodLevel(): number
+    getItemDamage(): number
+    getItemName(): string
+    getItemNbt(): INbt
+    getLore(): string[]
+    getMaxItemDamage(): number
+    getMaxStackSize(): number
+    /**
+     * No support is given for this method.
+     * net.minecraft.item.ItemStack
+     */
+
+    //TODO: Add minecraft type
+    getMCItemStack(): unknown
+    getName(): string
+    getNbt(): INbt
+    getStackSize(): number
+    /**
+     * Stored data persists through world restart.
+     */
+    getStoreddata(): IData
+    /**
+     * Temp data stores anything but only untill it's reloaded
+     */
+    getTempdata(): IData
+    getType(): number
+    hasAttribute(name: string): boolean
+    hasCustomName(): boolean
+    hasEnchant(id: string): boolean
+    hasNbt(): boolean
+    /**
+     * Deprecated. 
+     */
+    isBlock(): boolean
+    /**
+     * Deprecated. 
+     */
+    isBook(): boolean
+    isEmpty(): boolean
+    isEnchanted(): boolean
+    isWearable(): boolean
+    removeEnchant(id: string): boolean
+    /**
+     * Removes the nbt from the itemstack
+     */
+    removeNbt(): void
+    /**
+     * Deprecated.
+     * Replaced by setAttribute(String name, number value, number slot)
+     */
+    setAttribute(name: string, value: number): void
+    setAttribute(name: string, value: number, slot: number): void
+    setCustomName(name: string): void
+    setItemDamage(value: number): void
+    setLore(lore: string[]): void
+    setStackSize(size: number): void
+}
