@@ -2,6 +2,18 @@
 /// <reference lib="es2015"/>
 /// <reference path="../minecraft/lib.types.d.ts"/>
 
+/**
+ * This is a lib file for Noppes Custom NPC mod for Minecraft.
+ * 
+ * This is mostly one monolithic file since I was having problems
+ * with the deno parser not reading the file correctly when split
+ * into smaller chunks. So I hope you have fun with that.
+ * 
+ * Eventually this should be moved to it's own github project,
+ * but I'll probably get around to that once it's actually close
+ * to being done. Which probably won't be any time soon.
+ */
+
     /**
      *  BASE API
      */
