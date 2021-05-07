@@ -1015,14 +1015,14 @@ interface IRecipeHandler {}
      * ITEM
      */
 
-interface IItemArmor {
+interface IItemArmor extends IItemStack {
     getArmorMaterial(): string
     getArmorSlot(): number
 }
-interface IItemBlock {
+interface IItemBlock extends IItemStack {
     getBlockName(): string
 }
-interface IItemBook {
+interface IItemBook extends IItemStack {
     getAuthor(): string 
     getText(): string[]
     getTitle(): string
@@ -1033,7 +1033,7 @@ interface IItemBook {
     setText(pages: string[]): void
     setTitle(title: string): void 
 }
-interface IItemScripted {
+interface IItemScripted extends IItemStack {
     getColor(): number
     getDurabilityColor(): number
     getDurabilityShow(): boolean
