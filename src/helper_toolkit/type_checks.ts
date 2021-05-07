@@ -2,5 +2,9 @@
 /// <reference path="../../types/noppes.npcs/lib.api.d.ts"/>
 
 export function instanceofBlockScripted(block: IBlock): block is IBlockScripted {
-    return "getIsLadder" in block;
+    if((<IBlockScripted>block).executeCommand){
+        return true;
+    } else {
+        return false;
+    }
 }

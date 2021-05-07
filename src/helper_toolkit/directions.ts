@@ -45,3 +45,47 @@ export function getDirection(you: IPos, them: IPos): SideEnum[]{
     }
     return Directions;
 }
+
+export function getOffset(you: IPos, direction: SideEnum): IPos {
+    if(direction == SideEnum.EAST) {
+        return you.add(1, 0, 0);
+    }
+    if(direction == SideEnum.WEST) {
+        return you.add(-1, 0, 0);
+    }
+    if(direction == SideEnum.UP) {
+        return you.add(0, 1, 0);
+    }
+    if(direction == SideEnum.DOWN) {
+        return you.add(0, -1, 0);
+    }
+    if(direction == SideEnum.SOUTH) {
+        return you.add(0, 0, 1);
+    }
+    if(direction == SideEnum.NORTH) {
+        return you.add(0, 0, -1);
+    }
+    return you.add(0, 0, 0);
+}
+
+export function inverseSide(direction: SideEnum): SideEnum {
+    if(direction == SideEnum.EAST) {
+        return SideEnum.WEST;
+    }
+    if(direction == SideEnum.WEST) {
+        return SideEnum.EAST;
+    }
+    if(direction == SideEnum.UP) {
+        return SideEnum.DOWN;
+    }
+    if(direction == SideEnum.DOWN) {
+        return SideEnum.UP;
+    }
+    if(direction == SideEnum.SOUTH) {
+        return SideEnum.NORTH;
+    }
+    if(direction == SideEnum.NORTH) {
+        return SideEnum.SOUTH;
+    }
+    return -1
+}

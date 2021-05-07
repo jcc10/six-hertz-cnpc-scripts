@@ -1,5 +1,6 @@
 /// <reference no-default-lib="true"/>
 /// <reference lib="es2015"/>
+/// <reference path="../minecraft/lib.types.d.ts"/>
 
     /**
      *  BASE API
@@ -59,10 +60,101 @@ interface IScoreboardObjective {}
 interface IScoreboardScore {}
 //deno-lint-ignore no-empty-interface
 interface IScoreboardTeam {}
-//deno-lint-ignore no-empty-interface
-interface ITimers {}
-//deno-lint-ignore no-empty-interface
-interface IWorld {}
+interface ITimers {
+    clear(): void
+    /**
+     * Used for timer events, wont throw an error if an timer with this id already exists and will overwrite it with this new one
+     */
+    forceStart(id: number, ticks: number, repeat: boolean): void
+    has(id: number): boolean
+    /**
+     * Resets the timer back to 0
+     */
+    reset(id: number): void
+    /**
+     * Used for timer events, will throw an error if a timer with the id is already started
+     */
+    start(id: number, ticks: number, repeat: boolean): void
+    stop(id: number): boolean 	 
+}
+interface IWorld {
+    broadcast(message: string): void
+    createEntity(id: string): IEntity
+    createEntityFromNBT(nbt: INbt): IEntity
+    createItem(name: string, damage: number, size: number): IItemStack
+    createItemFromNbt(nbt: INbt): IItemStack
+    explode(x: number, y: number, z: number, range: number, fire: boolean, grief: boolean): void
+    /**
+     * This gets all currently loaded entities in a world
+     */
+    getAllEntities(type: number): IEntity[]
+    getAllPlayers(): IPlayer[]
+    getBiomeName(x: number, z: number): string
+    getBlock(x: number, y: number, z: number): IBlock
+    /**
+     * Deprecated.
+     */
+    getClone(tab: number, name: string): IEntity
+    /**
+     * Deprecated. 
+     */
+    getClosestEntity(x: number, y: number, z: number, range: number, typ: number): IEntity
+    getClosestEntity(pos: IPos, range: number, type: number): IEntity
+    getDimension(): IDimension
+    getEntity(uuid: string): IEntity
+    getLightValue(x: number, y: number, z: number): number
+    /**
+     * Expert users only
+     * net.minecraft.util.math.BlockPos
+     */
+    getMCBlockPos(x: number, y: number, z: number): unknown
+    /**
+     * Expert users only
+     * net.minecraft.world.WorldServer
+     */
+    getMCWorld(): unknown
+    getName(): string
+    /**
+     * Deprecated. 
+     */
+    getNearbyEntities(x: number, y: number, z: number, range: number, type: number): IEntity[]
+    getNearbyEntities(pos: IPos, range: number, type: number): IEntity[]
+    getPlayer(name: string): IPlayer
+    getRedstonePower(x: number, y: number, z: number): number
+    getScoreboard(): IScoreboard
+    getSpawnPoint(): IBlock
+    /**
+     * Stored data persists through world restart.
+     */
+    getStoreddata(): IData
+    /**
+     * Stores any type of data, but will be gone on restart Temp data is the same cross dimension
+     */
+    getTempdata(): IData
+    getTime(): number
+    getTotalTime(): number
+    isDay(): boolean
+    isRaining(): boolean
+    /**
+     * Sound will be played in a 16 block range
+     */
+    playSoundAt(pos: IPos, sound: string, volume: number, pitch: number): void
+    removeBlock(x: number, y: number, z: number): void
+    setBlock(x: number, y: number, z: number, name: string, meta: number): void
+    setRaining(bo: boolean): void
+    setSpawnPoint(block: IBlock): void
+    setTime(time: number): void
+    /**
+     * Deprecated.
+     */
+    spawnClone(x: number, y: number, z: number, tab: number, name: string): IEntity
+    spawnEntity(entity: IEntity): void
+    /**
+     * Sends a packet from the server to the client everytime its called.
+     */
+    spawnParticle(particle: string, x: number, y: number, z: number, dx: number, dy: number, dz: number, speed: number, coun: number): void
+    thunderStrike(x: number, y: number, z: number): void
+}
 
 
 declare class CommandNoppesBase {}
@@ -73,10 +165,9 @@ declare class NpcAPI {
     createCustomGui(id: number, width: number, height: number, pauseGame: boolean): ICustomGui
     createMail(sender: string, subject: string): IPlayerMail
     /**
-     * Doesnt spawn the npc in the world
+     * Doesn't spawn the npc in the world
      */
-    //TODO: Add minecraft type: net.minecraft.world.World
-    createNPC(world: unknown): ICustomNpc
+    createNPC(world: net_minecraft_world_World): ICustomNpc
     /**
      * Used by modders
      * net.minecraftforge.fml.common.eventhandler.EventBus
@@ -93,9 +184,8 @@ declare class NpcAPI {
      */
     //TODO: Add java type
     getGlobalDir(): unknown
-    //TODO: Add minecraft type: net.minecraft.world.World 
     //TODO: Add minecraft type: net.minecraft.util.math.BlockPos 
-    getIBlock(world: unknown, pos: unknown): IBlock
+    getIBlock(world: net_minecraft_world_World, pos: unknown): IBlock
     //TODO: Add minecraft type: net.minecraft.inventory.Container 
     getIContainer(container: unknown): IContainer
     //TODO: Add minecraft type: net.minecraft.inventory.IInventory 
@@ -136,8 +226,7 @@ declare class NpcAPI {
     /**
      * Creates and spawns an npc
      */
-    //TODO: Add minecraft type: net.minecraft.world.World
-    spawnNPC(world: unknown, x: number, y: number, z: number): ICustomNpc
+    spawnNPC(world: net_minecraft_world_World, x: number, y: number, z: number): ICustomNpc
 
     stringToNbt(str: string): INbt
 }
@@ -261,16 +350,62 @@ interface ITextPlane {}
 /**
  * Animation Types
  */
-declare enum AnimationType {}
+declare enum AnimationType {
+    NORMAL = 0,
+    SIT = 1,
+    SLEEP = 2,
+    HUG = 3,
+    SNEAK = 4,
+    DANCE = 5,
+    AIM = 6,
+    CRAWL = 7,
+    POINT = 8,
+    CRY = 9,
+    WAVE = 10,
+    BOW = 11,
+    NO = 12,
+    YES = 13,
+    DEATH = 14,
+}
 /**
  * Entity Types
  */
-declare enum EntityType {}
-declare enum GuiComponentType {}
+declare enum EntityType {
+    ANY = -1,
+    UNKNOWN = 0,
+    PLAYER,
+    NPC,
+    MONSTER,
+    ANIMAL,
+    LIVING,
+    ITEM,
+    PROJECTILE,
+    PIXELMON,
+    VILLAGER,
+    ARROW,
+    THROWABLE,
+}
+
+declare enum GuiComponentType {
+    BUTTON = 0,
+    LABEL = 1,
+    TEXTURED_RECT = 2,
+    TEXT_FIELD = 3,
+    SCROLL = 4,
+    ITEM_SLOT = 5,
+}
 /**
  * Item Types
  */
-declare  enum ItemType {}
+declare  enum ItemType {
+    NORMAL = 0,
+    BOOK = 1,
+    BLOCK = 2,
+    ARMOR = 3,
+    SWORD = 4,
+    SEEDS = 5,
+    SCRIPTED = 6,
+}
 /**
  * Job Types
  */
