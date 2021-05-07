@@ -807,24 +807,168 @@ interface IPlayerMail {}
      * GUI
      */
 
-//deno-lint-ignore no-empty-interface
-interface IButton {}
-//deno-lint-ignore no-empty-interface
-interface ICustomGui {}
-//deno-lint-ignore no-empty-interface
-interface ICustomGuiComponent {}
-//deno-lint-ignore no-empty-interface
-interface IItemSlot {}
-//deno-lint-ignore no-empty-interface
-interface ILabel {}
-//deno-lint-ignore no-empty-interface
-interface IScroll {}
-//deno-lint-ignore no-empty-interface
-interface ITextField {}
-//deno-lint-ignore no-empty-interface
-interface ITexturedButton {}
-//deno-lint-ignore no-empty-interface
-interface ITexturedRect {}
+interface IButton extends ICustomGuiComponent {
+    getHeight(): number
+    getLabel(): string
+    getTexture(): string
+    getTextureX(): number
+    getTextureY(): number
+    getWidth(): number
+    hasTexture(): boolean
+    setLabel(label: string): IButton
+    setSize(width: number, height: number): IButton
+    setTexture(texture: string): IButton
+    setTextureOffset(textureX: number, textureY: number): IButton
+}
+interface ICustomGui {
+    /**
+     * Add a regular, Minecraft style button to this GUI.
+     */
+    addButton(id: number, label: string, x: number, y: number): IButton
+    /**
+     * Add a regular, Minecraft style button to this GUI, with a defined width and height.
+     */
+    addButton(id: number, label: string, x: number, y: number, width: number, height: number): IButton
+    /**
+     * Add an Item Slot to the GUI.
+     */
+    addItemSlot(x: number, y: number): IItemSlot
+    /**
+     * Add an Item Slot to the GUI with an IItemStack already in it.
+     */
+    addItemSlot(x: number, y: number, stack: IItemStack): IItemSlot
+    /**
+     * Add a Label to the GUI.
+     */
+    addLabel(id: number, label: string, x: number, y: number, width: number, height: number): ILabel
+    /**
+     * Add a Label to the GUI.
+     */
+    addLabel(id: number, label: string, x: number, y: number, width: number, height: number, color: number): ILabel
+    /**
+     * Add a Scroll List to the GUI, for the player to select from.
+     */
+    addScroll(id: number, x: number, y: number, width: number, height: number,list: string[]): IScroll
+    /**
+     * Add a Text Field input to the GUI, that the player can type into.
+     */
+    addTextField(id: number, x: number, y: number, width: number, height: number): ITextField
+    /**
+     * Add a button with a custom texture to this GUI.
+     */
+    addTexturedButton(id: number, label: string, x: number, y: number, width: number, height: number, texture: string): IButton
+    /**
+     * Add a button with a custom texture to this GUI, with a texture offset.
+     */
+    addTexturedButton(id: number, label: string, x: number, y: number, width: number, height: number, texture: string, textureX: number, textureY: number): IButton
+    /**
+     * Add a texture to be drawn within the GUI.
+     */
+    addTexturedRect(id: number, texture: string, x: number, y: number, width: number, height: number): ITexturedRect
+    /**
+     * Add a texture to be drawn within the GUI.
+     */
+    addTexturedRect(id: number, texture: string, x: number, y: number, width: number, height: number, textureX: number, textureY: number): ITexturedRect
+    /**
+     * Get a component from this GUI by it's ID.
+     */
+    getComponent(id: number): ICustomGuiComponent
+    getComponents(): ICustomGuiComponent[]
+    getHeight(): number
+    getID(): number
+    getSlots(): IItemSlot[]
+    getWidth(): number
+    /**
+     * Remove component from this GUI by it's ID.
+     */
+    removeComponent(id: number): void
+    setBackgroundTexture(resourceLocation: string): void
+    setDoesPauseGame(pauseGame: boolean): void
+    setSize(width: number, height: number): void
+    /**
+     * Add a display of the Player's Inventory to the GUI.
+     */
+    showPlayerInventory(x: number, y: number): void
+    /**
+     * Update the given player's CustomGUI with this one.
+     */
+    update(player: IPlayer): void
+    /**
+     * Update a given component in this GUI, if a component with a matching ID exists.
+     */
+    updateComponent(component: ICustomGuiComponent): void
+}
+interface ICustomGuiComponent {
+    getHoverText(): string[]
+    getID(): number 	 
+    getPosX(): number 	 
+    getPosY(): number 	 
+    hasHoverText(): boolean
+    setHoverText(text: string): ICustomGuiComponent
+    setHoverText(text: string[]): ICustomGuiComponent
+    setID(id: number): ICustomGuiComponent
+    setPos(x: number, y: number): ICustomGuiComponent
+
+}
+interface IItemSlot extends ICustomGuiComponent {
+    /**
+     * Expert users only
+     * net.minecraft.inventory.Slot
+     */ 
+    //TODO: Add minecraft type
+    getMCSlot(): unknown 
+    getStack(): IItemStack
+    hasStack(): boolean
+    setStack(itemStack: IItemStack): IItemSlot
+}
+interface ILabel extends ICustomGuiComponent {
+    getColor(): number
+    getHeight(): number
+    getScale(): number
+    getText(): string
+    getWidth(): number
+    setColor(color: number): ILabel
+    setScale(scale: number): ILabel
+    setSize(width: number, height: number): ILabel
+    setText(label: string): ILabel
+}
+interface IScroll extends ICustomGuiComponent {
+    getDefaultSelection(): number
+    getHeight(): number
+    getList(): string[]
+    getWidth(): number
+    isMultiSelect(): boolean
+    setDefaultSelection(defaultSelection: number): IScroll
+    setList(list: string[]): IScroll
+    setMultiSelect(multiSelect: boolean): IScroll
+    setSize(width: number, height: number): IScroll
+}
+interface ITextField extends ICustomGuiComponent {
+    getHeight(): number
+    getText(): string
+    getWidth(): number
+    setSize(width: number, height: number): ITextField
+    setText(defaultText: string): ITextField
+}
+interface ITexturedButton extends IButton {
+    getTexture(): string
+    getTextureX(): number 	 
+    getTextureY(): number 	 
+    setTexture(texture: string): ITexturedButton
+    setTextureOffset(textureX: number, textureY: number): ITexturedButton
+}
+interface ITexturedRect extends ICustomGuiComponent {
+getHeight(): number
+getScale(): number
+getTexture(): string
+getTextureX(): number
+getTextureY(): number
+getWidth(): number
+setScale(scale: number): ITexturedRect
+setSize(width: number, height: number): ITexturedRect
+setTexture(texture: string): ITexturedRect
+setTextureOffset(offsetX: number, offsetY: number): ITexturedRect
+}
 
     /**
      * HANDLER
