@@ -3,6 +3,7 @@
 rm -rf ./bundle
 mkdir ./bundle
 mkdir ./bundle/toolkit
+mkdir ./bundle/settings-tree
 rm -rf ./dist
 mkdir ./dist
 rm -rf ./built
@@ -17,6 +18,9 @@ deno bundle ./src/RegenBlock/script.ts ./bundle/RegenBlock.js
 # bundle src/toolkit/block_details
 deno cache ./src/toolkit/block_details.ts
 deno bundle ./src/toolkit/block_details.ts ./bundle/toolkit/block_details.js
+# bundle src/settings-tree/global
+deno cache ./src/settings-tree/global.ts
+deno bundle ./src/settings-tree/global.ts ./bundle/settings-tree/global.js
 
 
 npx babel bundle -d built

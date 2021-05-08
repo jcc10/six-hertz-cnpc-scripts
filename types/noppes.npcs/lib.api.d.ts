@@ -191,11 +191,7 @@ declare class NpcAPI {
     getClones(): ICloneHandler
     getDialogs(): IDialogHandler
     getFactions(): IFactionHandler
-    /**
-     * java.io.File
-     */
-    //TODO: Add java type
-    getGlobalDir(): unknown
+    getGlobalDir(): java_io_File
     //TODO: Add minecraft type: net.minecraft.util.math.BlockPos 
     getIBlock(world: net_minecraft_world_World, pos: unknown): IBlock
     //TODO: Add minecraft type: net.minecraft.inventory.Container 
@@ -222,11 +218,7 @@ declare class NpcAPI {
      */
     getRawPlayerData(uuid: string): INbt
     getRecipes(): IRecipeHandler
-    /**
-     * java.io.File
-     */
-    //TODO: Add java type
-    getWorldDir(): unknown 
+    getWorldDir(): java_io_File 
     hasPermissionNode(permission: string): boolean
     static Instance(): NpcAPI
     static IsAvailable(): boolean
@@ -767,8 +759,18 @@ interface IVillager {}
      * ENTITY.DATA
      */
 
-//deno-lint-ignore no-empty-interface
-interface IData {}
+interface IData {
+    /**
+     * Removes all data
+     */
+    clear(): void
+
+    get(key: string):  JavaObject
+    getKeys(): string[]
+    has(key: string): boolean
+    put(key: string, value: JavaObject): void
+    remove(key: string): void
+}
 
 //deno-lint-ignore no-empty-interface
 interface ILine {}
