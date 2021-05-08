@@ -1,5 +1,5 @@
 /// <reference no-default-lib="true"/>
-/// <reference path="../../types/noppes.npcs/events/lib.scriptedblock.d.ts"/>
+/// <reference path="../../types/noppes.npcs/events/lib.ScriptedBlock.d.ts"/>
 import { Console } from "../helper_toolkit/console.ts";
 import { getDirection, SideTypeToEnum, SideEnum, getOffset } from "../helper_toolkit/directions.ts";
 import { instanceofBlockScripted } from "../helper_toolkit/type_checks.ts";

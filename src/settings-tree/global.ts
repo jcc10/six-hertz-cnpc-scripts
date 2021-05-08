@@ -1,5 +1,6 @@
 /// <reference no-default-lib="true"/>
-/// <reference path="../../types/noppes.npcs/events/lib.scriptedblock.d.ts"/>
+/// <reference path="../../types/noppes.npcs/events/lib.CustomGui.d.ts"/>
+/// <reference path="../../types/noppes.npcs/events/lib.ScriptedBlock.d.ts"/>
 import { Console } from "../helper_toolkit/console.ts";
 import { readDir, readFile } from "../helper_toolkit/fs.ts";
 import { guiBase, guiSizes } from "../consts.ts"
@@ -10,6 +11,7 @@ var userBox: ITextField
 var permittedBox: ITextField
 var noteBox: ITextField
 var permittedList: IScroll
+//var permittedListHeight: number;
 var closeButton: IButton
 
 export function init(e: InitEvent){
@@ -27,11 +29,11 @@ export function init(e: InitEvent){
     runningY += 20
     noteBox = gui.addTextField((id += 1), 5, (runningY += 5), (guiInfo.x - 10), 20);
     runningY += 20
-    const nextY = ((guiInfo.y - (runningY + 6 + 5))- 20)
-    permittedList = gui.addScroll((id += 1), 5, (runningY += 5), (guiInfo.x - 10), nextY,
+    const permittedListHeight = ((guiInfo.y - (runningY + 6 + 5))- 25)
+    permittedList = gui.addScroll((id += 1), 5, (runningY += 5), (guiInfo.x - 10), permittedListHeight,
     ["Authorized User List Failed To Update"]);
-    runningY += nextY;
-    closeButton = gui.addButton((id += 1), "Close", 5, (runningY + 5))
+    runningY += permittedListHeight;
+    closeButton = gui.addButton((id += 1), "Close", 5, (runningY + 5), (guiInfo.x - 10), 20);
 }
 
 export function interact(e: InteractEvent) {
@@ -66,6 +68,12 @@ export function interact(e: InteractEvent) {
         users.push(user);
     }
     permittedList.setList(users);
+    permittedList.setSize(permittedList.getWidth(), permittedList.getHeight());
+    gui.updateComponent(permittedList);
     e.player.showCustomGui(gui);
-    console.log(permittedList.getHeight() + "");
 }
+
+/*export function customGuiScroll() {
+    permittedList.setSize(permittedList.getWidth(), permittedListHeight);
+    gui.updateComponent(permittedList);
+}*/
