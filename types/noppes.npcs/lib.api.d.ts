@@ -733,7 +733,7 @@ interface IPlayer extends IEntityLivingBase {
     /**
      * Open a ICustomGui to this player.
      */
-    //showCustomGui(gui: ICustomGui): void
+    showCustomGui(gui: ICustomGui): void
 
     showDialog(id: number, name: string): void
     startQuest(id: number): void
