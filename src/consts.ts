@@ -2,7 +2,9 @@
 export const guiBase = 1838254000
 
 export const guiSizes = {
+    /* spell-checker: disable-next-line  */
     "customnpcs:largebg.png": {
+        /* spell-checker: disable-next-line  */
         location: "customnpcs:textures/gui/largebg.png",
         x: 192,
         //TODO: Confirm this number.
