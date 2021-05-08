@@ -949,6 +949,13 @@ interface ILabel extends ICustomGuiComponent {
     setSize(width: number, height: number): ILabel
     setText(label: string): ILabel
 }
+/**
+ * Due to a bug, after any interaction with this element the following code must be ran to fix the height.
+ * ```
+ * scroll.setSize(scroll.getWidth(), scroll.getHeight());
+ * gui.updateComponent(scroll);
+ * ```
+ */
 interface IScroll extends ICustomGuiComponent {
     getDefaultSelection(): number
     getHeight(): number
