@@ -2,7 +2,7 @@
 /// <reference path="../../types/noppes.npcs/events/lib.ScriptedBlock.d.ts"/>
 /// <reference path="../../types/noppes.npcs/events/lib.CustomGui.d.ts"/>
 import { Console } from "../helper_toolkit/console.ts";
-import { readDir, readFile } from "../helper_toolkit/fs.ts";
+import { readJsonFile } from "../helper_toolkit/fs.ts";
 /* spell-checker: disable-next-line  */
 import { guiBase, guiSizes } from "../consts.ts"
 var console: Console;
@@ -35,21 +35,27 @@ export function init(e: InitEvent){
     noteBox = gui.addTextField((id += 1), 5, (runningY += 5), (guiInfo.x - 10), 20);
     runningY += 20
     permittedListHeight = ((guiInfo.y - (runningY + 6 + 5))- 25)
-    permittedList = gui.addScroll((id += 1), 5, (runningY += 5), (guiInfo.x - 10), permittedListHeight,
-    ["Authorized User List Failed To Update"]);
+    permittedList = gui.addScroll((id += 1), 5, (runningY += 5),
+                                (guiInfo.x - 10), permittedListHeight, []);
     runningY += permittedListHeight;
     closeButton = gui.addButton((id += 1), "Close", 5, (runningY + 5), (guiInfo.x - 10), 20);
 }
 
 export function interact(e: InteractEvent) {
+    permittedList.setSize(permittedList.getWidth(), permittedListHeight);
     const api = e.API;
-    const updateWorked = updateUserData(api);
+    const path = "/6hsc";
+    worldPath = api.getWorldDir().toString() + path
     pathBox.setText(worldPath + "/test.json");
-    if(!updateWorked){
+    const resp = readJsonFile(api, path, "test.json");
+    if(typeof resp == "string"){
         userBox.setText(e.player.getName());
         permittedBox.setText(false + "");
+        noteBox.setText("Error: " + resp);
         e.player.showCustomGui(gui);
+        return;
     }
+    userData = <Record<string, Record<string, string>>>resp;
     const playerName = e.player.getName()
     getUserDetails(playerName);
     userID = [];
@@ -66,32 +72,8 @@ export function interact(e: InteractEvent) {
     if(typeof isOnList == "number"){
         permittedList.setDefaultSelection(isOnList);
     }
-    permittedList.setSize(permittedList.getWidth(), permittedListHeight);
     gui.updateComponent(permittedList);
     e.player.showCustomGui(gui);
-}
-
-function updateUserData(api: NpcAPI): boolean{
-    try{
-        worldPath = api.getWorldDir().toString() + "/6hsc"
-            const worldPathContents = readDir(worldPath);
-            let hasFile = false;
-            for(const i of worldPathContents){
-                if(i == "test.json"){
-                    hasFile = true;
-                    break;
-                }
-            }
-            if(!hasFile){
-                return false
-            }
-            const fileRaw = readFile(worldPath + "/test.json");
-            userData = JSON.parse(fileRaw);
-            return true;
-    } catch {
-        return false;
-    }
-    
 }
 
 function getUserDetails(user: string): void{

@@ -6,6 +6,8 @@ mkdir ./bundle/toolkit
 mkdir ./bundle/settings-tree
 rm -rf ./dist
 mkdir ./dist
+rm -rf ./dist2
+mkdir ./dist2
 rm -rf ./built
 mkdir ./built
 
@@ -18,11 +20,16 @@ deno bundle ./src/RegenBlock/script.ts ./bundle/RegenBlock.js
 # bundle src/toolkit/block_details
 deno cache ./src/toolkit/block_details.ts
 deno bundle ./src/toolkit/block_details.ts ./bundle/toolkit/block_details.js
-# bundle src/settings-tree/global
+# bundle src/settings-tree/user_list
+deno cache ./src/settings-tree/user_list/script.ts
+deno bundle ./src/settings-tree/user_list/script.ts ./bundle/settings-tree/user_list.js
+# bundle src/settings-tree/user_list
 deno cache ./src/settings-tree/global.ts
-deno bundle ./src/settings-tree/global.ts ./bundle/settings-tree/global.js
+deno bundle ./src/settings-tree/global.ts ./bundle/global.js
 
 
-npx babel bundle -d built
 
-deno --unstable run -A ./cjs-to-raw.ts
+#npx babel bundle -d built
+
+#deno --unstable run -A ./cjs-to-raw.ts
+deno --unstable run -A ./bjs-to-raw.ts

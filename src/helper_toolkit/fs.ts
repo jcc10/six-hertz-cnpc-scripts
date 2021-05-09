@@ -63,6 +63,37 @@ export function readFile(filePath: string): string {
     }
 }
 
+export function readJsonFile(api: NpcAPI, path: string, filename: string): unknown | string {
+    const worldPath = api.getWorldDir().toString() + path
+    let hasFile = false;
+    try{
+        const worldPathContents = readDir(worldPath);
+        for(const i of worldPathContents){
+            if(i == filename){
+                hasFile = true;
+                break;
+            }
+        }
+    } catch {
+        return "Code failure in finding file.";
+    }
+    if(!hasFile){
+        return "File not found.";
+    }
+    let fileRaw: string;
+    try {
+        fileRaw = readFile(worldPath + "/" + filename);
+    } catch {
+        return `Failure to read file ${worldPath + "/" + filename}`;
+    }
+    try {
+        const file = JSON.parse(fileRaw);
+        return file;
+    } catch {
+        return "JSON Parse error.";
+    }
+}
+
 function fileGetter(filePath: string) {
     const path: java_nio_Path = Paths.get(filePath);
     try {

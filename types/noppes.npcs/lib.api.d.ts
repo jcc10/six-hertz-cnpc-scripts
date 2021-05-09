@@ -1,5 +1,5 @@
 /// <reference no-default-lib="true"/>
-/// <reference lib="es2015"/>
+/// <reference lib="esnext"/>
 /// <reference path="../minecraft/lib.types.d.ts"/>
 
 /**
