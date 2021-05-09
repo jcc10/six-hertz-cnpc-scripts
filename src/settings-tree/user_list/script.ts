@@ -18,11 +18,14 @@ export function interact(e: InteractEvent) {
     const worldPath = api.getWorldDir().toString() + path
     const gui = new guiInstance(e.API, Gem, worldPath);
     const resp = readJsonFile(api, path, "test.json");
+    let dGUI: ICustomGui;
     if(typeof resp == "string"){
-        e.player.showCustomGui(gui.initialShow({}, e.player.getDisplayName(), resp));
+        dGUI = gui.initialShow({}, e.player.getDisplayName(), resp);
+    } else {
+        const userData = <Record<string, Record<string, string>>>resp;
+        dGUI = gui.initialShow(userData, e.player.getDisplayName());
     }
-    const userData = <Record<string, Record<string, string>>>resp;
-    e.player.showCustomGui(gui.initialShow(userData, e.player.getDisplayName()));
+    e.player.showCustomGui(dGUI);
 }
 
 export function customGuiScroll(e: ScrollEvent) {

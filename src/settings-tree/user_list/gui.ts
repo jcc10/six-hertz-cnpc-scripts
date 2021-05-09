@@ -9,83 +9,77 @@ const guiInfo = guiSizes["customnpcs:largebg.png"];
 export class guiInstance {
     api: NpcAPI;
     gui: ICustomGui;
-    guiGem: GEM;
     pathBox: ITextField
-    pathBoxGem: GEM
     userBox: ITextField
-    userBoxGem: GEM
     permittedBox: ITextField
-    permittedBoxGem: GEM
     noteBox: ITextField
-    noteBoxGem: GEM
     permittedList: IScroll
-    permittedListGem: GEM
     permittedListHeight: number;
-    closeButton: IButton
-    closeButtonGem: GEM
     userData: Record<string, Record<string, string>> = {};
     userID: string[] = [];
-    worldPath = "";
+
     constructor(api: NpcAPI, guiGem: GEM, worldPath: string){
         this.api = api;
         // Gui Top Level
         {
-            this.guiGem = guiGem;
-            this.gui = this.api.createCustomGui(this.guiGem.id, guiInfo.x, guiInfo.y, false);
+            this.gui = this.api.createCustomGui(guiGem.id, guiInfo.x, guiInfo.y, false);
             this.gui.setBackgroundTexture(guiInfo.location);
         }
         let runningY = 0;
         // Path Box
         {
-            this.pathBoxGem = this.guiGem.newChild();
-            this.pathBox = this.gui.addTextField(this.pathBoxGem.id, 5, (runningY += 6), (guiInfo.x - 10), 20);
-            this.worldPath = worldPath;
+            const pathBoxGem = guiGem.newChild();
+            this.pathBox = this.gui.addTextField(pathBoxGem.id, 5, (runningY += 6), (guiInfo.x - 10), 20);
             this.pathBox.setText(worldPath + "/test.json");
             runningY += 20
         }
         // User Box
         {
-            this.userBoxGem = this.guiGem.newChild();
-            this.userBox = this.gui.addTextField(this.userBoxGem.id, 5, (runningY += 5), (guiInfo.x - 10), 20);
+            const userBoxGem = guiGem.newChild();
+            this.userBox = this.gui.addTextField(userBoxGem.id, 5, (runningY += 5), (guiInfo.x - 10), 20);
             runningY += 20
         }
         // Permitted Box
         {
-            this.permittedBoxGem = this.guiGem.newChild();
-            this.permittedBox = this.gui.addTextField(this.permittedBoxGem.id, 5, (runningY += 5), (guiInfo.x - 10), 20);
+            const permittedBoxGem = guiGem.newChild();
+            this.permittedBox = this.gui.addTextField(permittedBoxGem.id, 5, (runningY += 5), (guiInfo.x - 10), 20);
             runningY += 20
         }
         // Note Box
         {
-            this.noteBoxGem = this.guiGem.newChild();
-            this.noteBox = this.gui.addTextField(this.noteBoxGem.id, 5, (runningY += 5), (guiInfo.x - 10), 20);
+            const noteBoxGem = guiGem.newChild();
+            this.noteBox = this.gui.addTextField(noteBoxGem.id, 5, (runningY += 5), (guiInfo.x - 10), 20);
             runningY += 20
         }
         // Permitted List
         {
             this.permittedListHeight = ((guiInfo.y - (runningY + 6 + 5))- 25)
-            this.permittedListGem = this.guiGem.newChild();
-            this.permittedList = this.gui.addScroll(this.permittedListGem.id, 5, (runningY += 5),
+            const permittedListGem = guiGem.newChild();
+            this.permittedList = this.gui.addScroll(permittedListGem.id, 5, (runningY += 5),
                                         (guiInfo.x - 10), this.permittedListHeight, []);
             runningY += this.permittedListHeight;
-            this.permittedListGem.SetScrollEvent((e)=>this.scrollPlayerList(e));
+            permittedListGem.SetScrollEvent((e)=>this.scrollPlayerList(e));
         }
         // Close Button
         {
-            this.closeButtonGem = this.guiGem.newChild();
-            this.closeButton = this.gui.addButton(this.closeButtonGem.id, "Close", 5, (runningY + 5), (guiInfo.x - 10), 20);
+            const closeButtonGem = guiGem.newChild();
+            this.gui.addButton(closeButtonGem.id, "Close", 5, (runningY + 5), (guiInfo.x - 10), 20);
             runningY += 20;
-            this.closeButtonGem.SetButtonEvent((e)=>this.closeButtonClicked(e));
+            closeButtonGem.SetButtonEvent((e)=>this.closeButtonClicked(e));
         }
     }
 
-    showUserDetails(user: string): void{
+    getUserDetails(user: string): [string, string]{
+        const permitted = this.userData[user]?.permitted || false + "";
+        const note = this.userData[user]?.note || "";
+        return [permitted, note];
+    }
+
+    showUserDetails(user: string, permitted: string, note: string){
         this.userBox.setText(user);
         this.gui.updateComponent(this.userBox);
-        const permitted = this.userData[user]?.permitted || false;
-        this.permittedBox.setText(permitted + "");
+        this.permittedBox.setText(permitted);
         this.gui.updateComponent(this.permittedBox);
-        const note = this.userData[user]?.note || "";
         this.noteBox.setText(note);
         this.gui.updateComponent(this.noteBox);
         this.permittedList.setSize(this.permittedList.getWidth(), this.permittedListHeight);
@@ -94,13 +88,15 @@ export class guiInstance {
 
     initialShow(userData: Record<string, Record<string, string>>, player: string, error?: string){
         if(typeof error == "string"){
-            this.userBox.setText(player);
-            this.permittedBox.setText(false + "");
-            this.noteBox.setText("Error: " + error);
+            this.userData = {};
+            this.userID = [];
+            this.permittedList.setList(this.userID);
+            this.showUserDetails(player, false + "", "Error: " + error);
             return this.gui;
         }
         this.userData = userData;
-        this.showUserDetails(player);
+        const [permitted, note] = this.getUserDetails(player);
+        this.showUserDetails(player, permitted, note);
         {
             this.userID = [];
             let n = 0;
@@ -127,7 +123,8 @@ export class guiInstance {
         if(e.selection[0]){
             sel = e.selection[0]
         }
-        this.showUserDetails(sel);
+        const [permitted, note] = this.getUserDetails(sel);
+        this.showUserDetails(sel, permitted, note);
         this.permittedList.setSize(this.permittedList.getWidth(), this.permittedListHeight);
         this.permittedList.setDefaultSelection(e.scrollIndex);
         this.gui.updateComponent(this.permittedList);

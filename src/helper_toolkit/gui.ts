@@ -4,20 +4,31 @@
 export class IdRegister {
     rangeStart: number;
     rangeEnd: number;
+    startfrom: number;
     private active: number[] = [];
     constructor(rangeStart: number, rangeEnd: number){
         this.rangeStart = rangeStart;
         this.rangeEnd = rangeEnd;
+        this.startfrom = rangeStart;
         if(rangeStart >= rangeEnd){
             throw new Error("Invalid Range");
         }
     }
     next(): number {
-        for(let i = this.rangeStart; i < this.rangeEnd; i++){
+        let looped = false;
+        for(let i = this.startfrom; true; i++){
+            if( i >= this.rangeEnd){
+                if(looped){
+                    break;
+                }
+                i = this.startfrom;
+                looped = true;
+            }
             if(this.active.includes(i)){
                 continue;
             }
             this.active.push(i);
+            this.startfrom = i;
             return i;
         }
         throw new Error("Couldn't find free gui ID.");
@@ -40,6 +51,7 @@ export class GemCreator {
     api: NpcAPI;
     idGen: IdRegister;
     items: Record<string, GEM>;
+    itemCount = 0;
     constructor(api: NpcAPI, idRangeStart: number, idRangeEnd: number){
         this.api = api;
         this.idGen = new IdRegister(idRangeStart, idRangeEnd);
@@ -52,10 +64,19 @@ export class GemCreator {
         if(parent){
             this.items[parent+""].addChild(id);
         }
+        this.itemCount++;
         return this.items[id + ""];
     }
 
     remove(id: number, skipUp = false){
+        if(!this.items[id + ""]){
+            // Sometimes getting a id leak.
+            this.api.executeCommand(this.api.getIWorlds()[0], "/say GUI ID Leak detected.");
+            this.api.executeCommand(this.api.getIWorlds()[0], `/say ${this.idGen.activeCount()} reported hanging id's by idGenerator.`);
+            this.api.executeCommand(this.api.getIWorlds()[0], `/say ${this.itemCount} reported hanging items by GemCreator.`);
+            this.api.executeCommand(this.api.getIWorlds()[0], `/say ${id} removed skipUp set to ${skipUp}.`);
+            return;
+        }
         for(const child of this.items[id + ""].children) {
             this.remove(child, true);
         }
@@ -67,6 +88,7 @@ export class GemCreator {
         }
         this.idGen.remove(id);
         delete this.items[id+""]
+        this.itemCount--;
     }
 
     ButtonEventHandler(e: ButtonEvent){
@@ -125,7 +147,6 @@ export class GEM {
 
     newChild() {
         const newGem = this.processor.newItem(this.id);
-        this.children.push(newGem.id);
         return newGem;
     }
 
