@@ -1,6 +1,6 @@
 import { walkSync, emptyDirSync, ensureDirSync } from "https://deno.land/std@0.95.0/fs/mod.ts";
 
-emptyDirSync("./dist2");
+emptyDirSync("./dist");
 
 const exportRegex = /export { (\S*) as (\S*) };/g;
 const exportReplace = `var $2 = $1;`
@@ -11,7 +11,7 @@ for (const entry of walkSync("./bundle")) {
         continue;
     }
     console.log(entry.path);
-    const path = "./dist2/" + entry.path.replace(entry.name, "").replace("/bundle", "");
+    const path = "./dist/" + entry.path.replace(entry.name, "").replace("/bundle", "");
     let file = Deno.readTextFileSync(entry.path);
     file = file.replace(exportRegex, exportReplace);
     ensureDirSync(path);
