@@ -6,8 +6,6 @@ mkdir ./bundle/toolkit
 mkdir ./bundle/settings-tree
 rm -rf ./dist
 mkdir ./dist
-rm -rf ./dist2
-mkdir ./dist2
 rm -rf ./built
 mkdir ./built
 
