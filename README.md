@@ -5,9 +5,7 @@ We use GrallVM instead of Java which means we get all the nice ES6 features. Thi
 
 NOTE: To get GrallVM to allow Java exposures you must pass the following flag to the java executable `-Dpolyglot.js.nashorn-compat=true`
 
-~~Currently using deno for linting, deno package Bundler for bundeling and NPM package Babel for transpileing from ES6 to ES5.~~ Will probably remove the babel / npm files in the near future.
-
-Currently using deno cli for linting, deno cli Bundler for bundeling and a deno script for making the bundle exports into exposed functions.
+Currently using deno cli for linting, deno cli Bundler for bundeling and a deno script for making the bundle exports into exposed functions. Need to get around to a single command deno script.
 
 # NPC API
 
