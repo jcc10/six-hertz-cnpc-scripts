@@ -27,9 +27,4 @@ deno bundle ./src/settings-tree/user_list/script.ts ./bundle/settings-tree/user_
 deno cache ./src/settings-tree/global.ts
 deno bundle ./src/settings-tree/global.ts ./bundle/global.js
 
-
-
-#npx babel bundle -d built
-
-#deno --unstable run -A ./cjs-to-raw.ts
 deno --unstable run -A ./bjs-to-raw.ts
